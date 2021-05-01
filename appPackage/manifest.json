@@ -3,9 +3,9 @@
     "manifestVersion": "1.8",
     "version": "1.0.0",
     "id": "e8b5c3ef-0376-4cc9-8143-c06a877a5a12",
-    "packageName": "com.microsoft.teams.extension",
+    "packageName": "com.picturematic",
     "developer": {
-        "name": "Teams App, Inc.",
+        "name": "Picturematic, Inc.",
         "websiteUrl": "https://localhost:3000",
         "privacyUrl": "https://localhost:3000/privacy",
         "termsOfUseUrl": "https://localhost:3000/termsofuse"

@@ -1,15 +1,10 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
-
 import React from 'react';
 import './App.css';
+import Thumbnail from "./Thumbnail";
 import * as microsoftTeams from "@microsoft/teams-js";
+import * as appInfo from "../GeneratedAppInfo"
 
-/**
- * The 'PersonalTab' component renders the main tab content
- * of your app.
- */
-class Tab extends React.Component<any, any> {
+class Tab extends React.Component<any, { context:any }> {
   constructor(props: any){
     super(props)
     this.state = {
@@ -18,26 +13,35 @@ class Tab extends React.Component<any, any> {
   }
 
   //React lifecycle method that gets called once a component has finished mounting
-  //Learn more: https://reactjs.org/docs/react-component.html#componentdidmount
-  componentDidMount(){
+  componentDidMount() {
     // Get the user context from Teams and set it in the state
     microsoftTeams.getContext((context: microsoftTeams.Context) => {
       this.setState({
         context: context
       });
     });
-    // Next steps: Error handling using the error object
   }
 
   render() {
-
-      const userName = Object.keys(this.state.context).length > 0 ? this.state.context['upn'] : "";
-
+      const entityId = Object.keys(this.state.context).length > 0 ? this.state.context['entityId'] : "";
+      var pictures = <></>;
+      if(entityId.length > 0) {
+        for(var category in appInfo.categoryPictures) {
+          if(category === entityId) {
+            pictures = (
+              <div>
+                {appInfo.categoryPictures[entityId].map((filename:string) => <Thumbnail category={category} filename={filename} />)}
+              </div>
+              );
+            break;
+          }
+        }
+      }
       return (
-      <div>
-        <h3>Hello World!</h3>
-        <h1>Congratulations {userName}!</h1> <h3>This is the tab you made :-)</h3>
-      </div>
+        <div id="container">
+          <h2>Pictures for the <em>{entityId}</em> category:</h2>
+          {pictures}
+        </div>
       );
   }
 }
