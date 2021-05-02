@@ -1,0 +1,81 @@
+TabConfig.tsx
+-------------
+
+      <div>
+        <h1>Tab Configuration</h1>
+        <div>
+          Please choose the category you want this tab to show:
+        </div>
+        <select>
+          <option>backgrounds</option>
+          <option>business</option>
+          <option>people</option>
+        </select>
+      </div>
+
+import * as appInfo from "../GeneratedAppInfo"
+
+{appInfo.categories.map(category => <option>{category}</option>)}
+
+
+
+class TabConfig extends React.Component<any, any> {
+  constructor(props: any){
+    super(props)
+    this.state = { category: appInfo.categories[0] };
+  }
+
+
+
+
+  onChange(e:any) {
+    var value = e.target.value;
+    if(value && value.length > 0) this.setState({ category: value }); 
+  }
+
+
+<select onChange={e=>this.onChange(e)} value={this.state.category}>
+
+
+"suggestedDisplayName": this.state.category,
+"entityId": this.state.category,
+
+  componentDidMount() {
+    microsoftTeams.settings.getSettings(settings => {
+      if(settings.entityId && settings.entityId.length > 0)
+        this.setState({ category: settings.entityId });
+    });
+  }
+
+
+Tab.tsx
+-------
+
+<div id="container">
+  <h2>Pictures for the <em>{entityId}</em> category:</h2>
+</div>
+
+
+import * as appInfo from "../GeneratedAppInfo"
+import Thumbnail from "./Thumbnail";
+
+
+      var pictures = <></>;
+      if(entityId.length > 0) {
+        for(var category in appInfo.categoryPictures) {
+          if(category === entityId) {
+            pictures = (
+              <div>
+                {appInfo.categoryPictures[entityId].map((filename:string) => <Thumbnail category={category} filename={filename} />)}
+              </div>
+              );
+            break;
+          }
+        }
+      }
+      return (
+        <div id="container">
+          <h2>Pictures for the <em>{entityId}</em> category:</h2>
+          {pictures}
+        </div>
+      );
