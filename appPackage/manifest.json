@@ -33,6 +33,23 @@
             ]
         }
     ],
+    "staticTabs": [
+        {
+            "entityId": "business",
+            "name": "Picturematic",
+            "contentUrl": "https://localhost:3000/tabpersonal",
+            "websiteUrl": "https://www.picturematic.com/Catalogue.html",
+            "scopes": [
+                "personal"
+            ]
+        },
+        {
+            "entityId": "about",
+            "scopes": [
+                "personal"
+            ]
+        }
+    ],
     "permissions": [
         "identity",
         "messageTeamMembers"

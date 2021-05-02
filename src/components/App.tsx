@@ -6,6 +6,7 @@ import Privacy from "./Privacy";
 import TermsOfUse from "./TermsOfUse";
 import Tab from "./Tab";
 import TabConfig from "./TabConfig";
+import TabPersonal from "./TabPersonal";
 
 /**
  * The main app which handles the initialization and routing
@@ -23,6 +24,7 @@ function App() {
       <Route exact path="/termsofuse" component={TermsOfUse} />
       <Route exact path="/tab" component={Tab} />
       <Route exact path="/config" component={TabConfig} />
+      <Route exact path="/tabpersonal" component={TabPersonal} />
     </Router>
   );
 }
