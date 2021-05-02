@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
+
 import './App.css';
 import * as microsoftTeams from "@microsoft/teams-js";
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -6,6 +9,7 @@ import Privacy from "./Privacy";
 import TermsOfUse from "./TermsOfUse";
 import Tab from "./Tab";
 import TabConfig from "./TabConfig";
+import TabPersonal from "./TabPersonal";
 
 /**
  * The main app which handles the initialization and routing
@@ -23,6 +27,7 @@ function App() {
       <Route exact path="/termsofuse" component={TermsOfUse} />
       <Route exact path="/tab" component={Tab} />
       <Route exact path="/config" component={TabConfig} />
+      <Route exact path="/tabpersonal" component={TabPersonal} />
     </Router>
   );
 }
