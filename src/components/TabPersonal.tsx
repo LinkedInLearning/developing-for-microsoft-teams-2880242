@@ -34,6 +34,17 @@ class TabPersonal extends React.Component<any, any> {
     if (value && value.length > 0) this.setState({ category: value });
   }
 
+  onChangeDropdown(i:any) {
+    // in FluentUI <Dropdown> component: onChange={(e,i)=>this.onChangeMode(i)}
+    var value = i.value;
+    if(value && value.length > 0) this.setState({ category: value }); 
+  }
+
+  onChangeCheckbox(i:any) {
+    // in FluentUI <Checkbox> component: onChange={(e,i)=>this.onChangeMode(i)}
+    this.setState({ listMode: i.checked }); 
+  }
+
   render() {
 
     const entityId = this.state.category;
