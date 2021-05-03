@@ -3,6 +3,7 @@ import './App.css';
 import * as microsoftTeams from "@microsoft/teams-js";
 import * as appInfo from "../GeneratedAppInfo"
 import Thumbnail from "./Thumbnail";
+import { Dropdown, Checkbox } from '@fluentui/react-northstar'
 
 /**
  * The 'PersonalTab' component renders the main tab content
@@ -13,7 +14,8 @@ class TabPersonal extends React.Component<any, any> {
     super(props)
     this.state = {
       context: {},
-      category: appInfo.categories[0]
+      category: appInfo.categories[0],
+      listMode: false
     }
   }
 
@@ -34,23 +36,32 @@ class TabPersonal extends React.Component<any, any> {
     if (value && value.length > 0) this.setState({ category: value });
   }
 
+  onChangeDropdown(i: any) {
+    // in FluentUI <Dropdown> component: onChange={(e,i)=>this.onChangeMode(i)}
+    var value = i.value;
+    if (value && value.length > 0) this.setState({ category: value });
+  }
+
+  onChangeCheckbox(i: any) {
+    // in FluentUI <Checkbox> component: onChange={(e,i)=>this.onChangeMode(i)}
+    this.setState({ listMode: i.checked });
+  }
+
   render() {
 
     const entityId = this.state.category;
 
     var selector = (
-      <select onChange={e => this.onChange(e)} value={this.state.category}>
-        {appInfo.categories.map(category => <option>{category}</option>)}
-      </select>
+      <Dropdown inline items={appInfo.categories} placeholder="Select category" onChange={(e,i)=>this.onChangeDropdown(i)} />
     );
-    
+
     var pictures = <></>;
     if (entityId.length > 0) {
       for (var category in appInfo.categoryPictures) {
         if (category === entityId) {
           pictures = (
             <div>
-              {appInfo.categoryPictures[entityId].map((filename: string) => <Thumbnail category={category} filename={filename} />)}
+              {appInfo.categoryPictures[entityId].map((filename: string) => <Thumbnail category={category} filename={filename} listview={this.state.listMode} />)}
             </div>
           );
           break;
@@ -60,6 +71,7 @@ class TabPersonal extends React.Component<any, any> {
 
     return (
       <div id="container">
+        <Checkbox label="Show as list" toggle onChange={(e,i)=>this.onChangeCheckbox(i)} />
         <h2>Pictures for the {selector} category:</h2>
         {pictures}
       </div>
