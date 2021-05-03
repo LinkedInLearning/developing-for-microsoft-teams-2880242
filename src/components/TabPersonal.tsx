@@ -13,7 +13,8 @@ class TabPersonal extends React.Component<any, any> {
     super(props)
     this.state = {
       context: {},
-      category: appInfo.categories[0]
+      category: appInfo.categories[0],
+      listMode: false
     }
   }
 
@@ -34,15 +35,15 @@ class TabPersonal extends React.Component<any, any> {
     if (value && value.length > 0) this.setState({ category: value });
   }
 
-  onChangeDropdown(i:any) {
+  onChangeDropdown(i: any) {
     // in FluentUI <Dropdown> component: onChange={(e,i)=>this.onChangeMode(i)}
     var value = i.value;
-    if(value && value.length > 0) this.setState({ category: value }); 
+    if (value && value.length > 0) this.setState({ category: value });
   }
 
-  onChangeCheckbox(i:any) {
+  onChangeCheckbox(i: any) {
     // in FluentUI <Checkbox> component: onChange={(e,i)=>this.onChangeMode(i)}
-    this.setState({ listMode: i.checked }); 
+    this.setState({ listMode: i.checked });
   }
 
   render() {
@@ -54,7 +55,7 @@ class TabPersonal extends React.Component<any, any> {
         {appInfo.categories.map(category => <option>{category}</option>)}
       </select>
     );
-    
+
     var pictures = <></>;
     if (entityId.length > 0) {
       for (var category in appInfo.categoryPictures) {
