@@ -2,8 +2,8 @@
     "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.8/MicrosoftTeams.schema.json",
     "manifestVersion": "1.8",
     "version": "1.0.0",
-    "id": "e8b5c3ef-0376-4cc9-8143-c06a877a5a12",
-    "packageName": "com.picturematic",
+    "id": "3390cb70-654a-4d3e-9621-0ff2b245b132",
+    "packageName": "com.microsoft.picbot",
     "developer": {
         "name": "Picturematic, Inc.",
         "websiteUrl": "https://localhost:3000",
@@ -15,39 +15,59 @@
         "outline": "outline.png"
     },
     "name": {
-        "short": "categorytab",
+        "short": "picbot2",
         "full": ""
     },
     "description": {
-        "short": "Short description for My Group Tab.",
-        "full": "Full description of My Group Tab."
+        "short": "Short description for Conversation Bot.",
+        "full": "Full description of Conversation Bot."
     },
     "accentColor": "#FFFFFF",
-    "configurableTabs": [
+    "bots": [
         {
-            "configurationUrl": "https://localhost:3000/config",
-            "canUpdateConfiguration": true,
+            "botId": "7c145f02-d990-4084-83de-b0453764063b",
             "scopes": [
-                "team",
-                "groupchat"
-            ]
-        }
-    ],
-    "staticTabs": [
-        {
-            "entityId": "business",
-            "name": "Picturematic",
-            "contentUrl": "https://localhost:3000/tabpersonal",
-            "websiteUrl": "https://www.picturematic.com/Catalogue.html",
-            "scopes": [
-                "personal"
-            ]
-        },
-        {
-            "entityId": "about",
-            "scopes": [
-                "personal"
-            ]
+                "personal",
+                "groupchat",
+                "team"
+            ],
+            "commandLists": [
+                {
+                    "scopes": [
+                        "personal"
+                    ],
+                    "commands": [
+                        {
+                            "title": "Hello",
+                            "description": "Sends a hello message and @mention the sender"
+                        }
+                    ]
+                },
+                {
+                    "scopes": [
+                        "team"
+                    ],
+                    "commands": [
+                        {
+                            "title": "Hello",
+                            "description": "Sends a hello message and @mention the sender"
+                        }
+                    ]
+                },
+                {
+                    "scopes": [
+                        "groupchat"
+                    ],
+                    "commands": [
+                        {
+                            "title": "Hello",
+                            "description": "Sends a hello message and @mention the sender"
+                        }
+                    ]
+                }
+            ],
+            "supportsFiles": false,
+            "isNotificationOnly": false
         }
     ],
     "permissions": [
@@ -55,7 +75,6 @@
         "messageTeamMembers"
     ],
     "validDomains": [
-        "localhost",
         "localhost:3000"
     ]
 }

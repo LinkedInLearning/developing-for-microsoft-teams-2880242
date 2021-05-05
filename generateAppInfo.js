@@ -16,7 +16,7 @@ content += "  ]; \n";
 content += "\n";
 
 // generate category picture lists
-content += "export var categoryPictures : any = {\n";
+content += "export var categoryPictures = {\n";
 for(var i=0; i< categories.length; i++) {
   var files = fs.readdirSync(inputDir + "/" + categories[i]);
   picturesarray = files.map(function(picture) {
@@ -28,5 +28,5 @@ content += "  }; \n";
 content += "\n";
 
 content += "\n";
-fs.writeFileSync('src/GeneratedAppInfo.ts', content);
-console.log('Saved GeneratedAppInfo.ts to src folder');
+fs.writeFileSync('src/GeneratedAppInfo.js', content);
+console.log('Saved GeneratedAppInfo.js to src folder');

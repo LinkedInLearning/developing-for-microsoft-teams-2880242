@@ -1,13 +1,13 @@
 /* This file is generated - do not edit */
 
-export var categories = [ 
+var categories = [ 
   "backgrounds",
   "business",
   "decorative",
   "people"
   ]; 
 
-export var categoryPictures : any = {
+var categoryPictures = {
   "backgrounds": [
     "acer_leaves__picturematic.com.jpg",
     "Aircraft_Wing__picturematic.com.jpg",
@@ -56,7 +56,7 @@ export var categoryPictures : any = {
     "all_changing__picturematic.com.jpg",
     "bank_building_millbank_London__picturematic.com.jpg",
     "Barrels__picturematic.com.jpg",
-    "Buildings_and_sculptures_Bellevue_WA_picturematic.com.jpg",
+    "Buildings_and_sculptures_Bellevue_WA__picturematic.com.jpg",
     "Buildings_London__picturematic.com.jpg",
     "Building_interior_Milan_2__picturematic.com.jpg",
     "Building_interior_Milan__picturematic.com.jpg",
@@ -138,7 +138,7 @@ export var categoryPictures : any = {
     "Aircraft_Boarding__picturematic.com.jpg",
     "airport_procession_Zagreb__picturematic.com.jpg",
     "Anthony_Gormley_Another_Place__picturematic.com.jpg",
-    "Bar_picturematic.com.jpg",
+    "Bar__picturematic.com.jpg",
     "boat_wake__picturematic.com.jpg",
     "Business_Card__picturematic.com.jpg",
     "Business_phone2__picturematic.com.jpg",
@@ -178,4 +178,5 @@ export var categoryPictures : any = {
     ],
   }; 
 
-
+module.exports.categories = categories;
+module.exports.categoryPictures = categoryPictures;
