@@ -40,6 +40,10 @@
                         {
                             "title": "Hello",
                             "description": "Sends a hello message and @mention the sender"
+                        },
+                        {
+                            "title": "Show",
+                            "description": "Show list of picture files matching string: e.g. Show building"
                         }
                     ]
                 },
@@ -51,6 +55,10 @@
                         {
                             "title": "Hello",
                             "description": "Sends a hello message and @mention the sender"
+                        },
+                        {
+                            "title": "Show",
+                            "description": "Show list of picture files matching string: e.g. Show building"
                         }
                     ]
                 },
@@ -62,6 +70,10 @@
                         {
                             "title": "Hello",
                             "description": "Sends a hello message and @mention the sender"
+                        },
+                        {
+                            "title": "Show",
+                            "description": "Show list of picture files matching string: e.g. Show building"
                         }
                     ]
                 }

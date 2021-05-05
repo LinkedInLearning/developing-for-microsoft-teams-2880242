@@ -29,11 +29,11 @@ class BotActivityHandler extends TeamsActivityHandler {
             TurnContext.removeRecipientMention(context.activity);
             var cmd = context.activity.text;
             if(cmd.indexOf(' ') > 0) cmd = context.activity.text.substr(0, cmd.indexOf(' '));
-            switch (cmd.trim()) {
-                case 'Hello':
+            switch (cmd.trim().toLowerCase()) {
+                case 'hello':
                     await this.mentionActivityAsync(context);
                     break;
-                case 'Show':
+                case 'show':
                     await this.showActivityAsync(context);
                     break;
                 default:
@@ -77,7 +77,22 @@ class BotActivityHandler extends TeamsActivityHandler {
     }
 
     async showActivityAsync(context) {
-        var replyActivity = MessageFactory.text("Searching for pics for u: " + images);
+        var replyActivity;
+        var query = context.activity.text;
+        if(query.indexOf(' ') > 0) {
+            query = context.activity.text.substr(query.indexOf(' ')+1);
+            var images = imageSearch(query);
+            if(images.length <= 0)
+                replyActivity = MessageFactory.text("Sorry, no images match that description :-(");
+            else {
+                const text = images.join(",\n\n");
+                const card = CardFactory.heroCard("Here's what I found...", text);
+                await context.sendActivity({ attachments: [card] });
+                return;
+                //replyActivity = MessageFactory.text("Searching for pics for u: " + images);
+            }
+        }
+        else replyActivity = MessageFactory.text("Please tell me what you want to show, e.g. Show buildings");
         await context.sendActivity(replyActivity);
     }
 
