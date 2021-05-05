@@ -77,7 +77,7 @@ class BotActivityHandler extends TeamsActivityHandler {
     }
 
     async showActivityAsync(context) {
-        var replyActivity = MessageFactory.text("Searching for pics for u: " + images);
+        var replyActivity = MessageFactory.text("Searching for pics for u");
         await context.sendActivity(replyActivity);
     }
 
