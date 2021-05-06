@@ -2,10 +2,10 @@
     "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.8/MicrosoftTeams.schema.json",
     "manifestVersion": "1.8",
     "version": "1.0.0",
-    "id": "3390cb70-654a-4d3e-9621-0ff2b245b132",
-    "packageName": "com.microsoft.picbot",
+    "id": "991e1f4e-48ea-4ada-a810-fda00129f0eb",
+    "packageName": "com.microsoft.teams.extension",
     "developer": {
-        "name": "Picturematic, Inc.",
+        "name": "Teams App, Inc.",
         "websiteUrl": "https://localhost:3000",
         "privacyUrl": "https://localhost:3000/privacy",
         "termsOfUseUrl": "https://localhost:3000/termsofuse"
@@ -15,71 +15,40 @@
         "outline": "outline.png"
     },
     "name": {
-        "short": "picbot2",
+        "short": "searchmsg",
         "full": ""
     },
     "description": {
-        "short": "Short description for Conversation Bot.",
-        "full": "Full description of Conversation Bot."
+        "short": "Short description for Messaging Extension Search.",
+        "full": "Full description of Messaging Extension Search."
     },
     "accentColor": "#FFFFFF",
-    "bots": [
+    "composeExtensions": [
         {
-            "botId": "7c145f02-d990-4084-83de-b0453764063b",
-            "scopes": [
-                "personal",
-                "groupchat",
-                "team"
-            ],
-            "commandLists": [
+            "botId": "168b7078-88f8-40d5-b1c2-a03ce205bb4d",
+            "canUpdateConfiguration": true,
+            "commands": [
                 {
-                    "scopes": [
-                        "personal"
+                    "id": "searchQuery",
+                    "type": "query",
+                    "title": "Search",
+                    "description": "Test command to run query",
+                    "initialRun": false,
+                    "fetchTask": false,
+                    "context": [
+                        "compose",
+                        "commandBox"
                     ],
-                    "commands": [
+                    "parameters": [
                         {
-                            "title": "Hello",
-                            "description": "Sends a hello message and @mention the sender"
-                        },
-                        {
-                            "title": "Show",
-                            "description": "Show list of picture files matching string: e.g. Show building"
-                        }
-                    ]
-                },
-                {
-                    "scopes": [
-                        "team"
-                    ],
-                    "commands": [
-                        {
-                            "title": "Hello",
-                            "description": "Sends a hello message and @mention the sender"
-                        },
-                        {
-                            "title": "Show",
-                            "description": "Show list of picture files matching string: e.g. Show building"
-                        }
-                    ]
-                },
-                {
-                    "scopes": [
-                        "groupchat"
-                    ],
-                    "commands": [
-                        {
-                            "title": "Hello",
-                            "description": "Sends a hello message and @mention the sender"
-                        },
-                        {
-                            "title": "Show",
-                            "description": "Show list of picture files matching string: e.g. Show building"
+                            "name": "searchQuery",
+                            "title": "Search Query",
+                            "description": "Your search query",
+                            "inputType": "text"
                         }
                     ]
                 }
-            ],
-            "supportsFiles": false,
-            "isNotificationOnly": false
+            ]
         }
     ],
     "permissions": [

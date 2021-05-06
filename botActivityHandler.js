@@ -9,93 +9,125 @@ const {
     ActionTypes
 } = require('botbuilder');
 
-const { imageSearch } = require('./imageSearch');
-
 class BotActivityHandler extends TeamsActivityHandler {
     constructor() {
         super();
-        /*  Teams bots are Microsoft Bot Framework bots.
-            If a bot receives a message activity, the turn handler sees that incoming activity
-            and sends it to the onMessage activity handler.
-            Learn more: https://aka.ms/teams-bot-basics.
+    }
 
-            NOTE:   Ensure the bot endpoint that services incoming conversational bot queries is
-                    registered with Bot Framework.
-                    Learn more: https://aka.ms/teams-register-bot. 
-        */
-        // Registers an activity event handler for the message event, emitted for every incoming message activity.
+    /* Building a messaging extension search command is a two step process.
+        (1) Define how the messaging extension will look and be invoked in the client.
+            This can be done from the Configuration tab, or the Manifest Editor.
+            Learn more: https://aka.ms/teams-me-design-search.
+        (2) Define how the bot service will respond to incoming search commands.
+            Learn more: https://aka.ms/teams-me-respond-search.
+        
+        NOTE:   Ensure the bot endpoint that services incoming messaging extension queries is
+                registered with Bot Framework.
+                Learn more: https://aka.ms/teams-register-bot. 
+    */
 
-        this.onMessage(async (context, next) => {
-            TurnContext.removeRecipientMention(context.activity);
-            var cmd = context.activity.text;
-            if(cmd.indexOf(' ') > 0) cmd = context.activity.text.substr(0, cmd.indexOf(' '));
-            switch (cmd.trim().toLowerCase()) {
-                case 'hello':
-                    await this.mentionActivityAsync(context);
-                    break;
-                case 'show':
-                    await this.showActivityAsync(context);
-                    break;
-                default:
-                    // By default for unknown activity sent by user show
-                    // a card with the available actions.
-                    const value = { count: 0 };
-                    const card = CardFactory.heroCard(
-                        'Lets talk...',
-                        null,
-                        [{
-                            type: ActionTypes.MessageBack,
-                            title: 'Say Hello',
-                            value: value,
-                            text: 'Hello'
-                        }]);
-                    await context.sendActivity({ attachments: [card] });
-                    break;
-            }
-            await next();
+    // Invoked when the service receives an incoming search query.
+    async handleTeamsMessagingExtensionQuery(context, query) {
+        const axios = require('axios');
+        const querystring = require('querystring');
+
+        const searchQuery = query.parameters[0].value;
+        const response = await axios.get(`http://registry.npmjs.com/-/v1/search?${querystring.stringify({ text: searchQuery, size: 8 })}`);
+
+        const attachments = [];
+        response.data.objects.forEach(obj => {
+
+            const myAdaptiveCard = {
+                "type": "AdaptiveCard",
+                "body": [
+                    {
+                        "type": "TextBlock",
+                        "size": "Medium",
+                        "weight": "Bolder",
+                        "text": obj.package.name
+                    },
+                    {
+                        "type": "ColumnSet",
+                        "columns": [
+                            {
+                                "type": "Column",
+                                "items": [
+                                    {
+                                        "type": "Image",
+                                        "style": "Person",
+                                        "url": "https://pbs.twimg.com/profile_images/3647943215/d7f12830b3c17a5a9e4afcc370e3a37e_400x400.jpeg",
+                                        "size": "Small"
+                                    }
+                                ],
+                                "width": "auto"
+                            },
+                            {
+                                "type": "Column",
+                                "items": [
+                                    {
+                                        "type": "TextBlock",
+                                        "spacing": "None",
+                                        "text": obj.package.description,
+                                        "isSubtle": true,
+                                        "wrap": true
+                                    }
+                                ],
+                                "width": "stretch"
+                            }
+                        ]
+                    }
+                ],
+                "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                "version": "1.3"
+            };
+
+
+
+            const card = CardFactory.adaptiveCard(myAdaptiveCard);
+            const preview = CardFactory.heroCard(obj.package.name); // Preview cards are optional for Hero card. You need them for Adaptive Cards.
+            //preview.content.tap = { type: 'invoke', value: { description: obj.package.description } };
+            const attachment = { ...card, preview };
+            attachments.push(attachment);
         });
 
-
+        return {
+            composeExtension: {
+                type: 'result',
+                attachmentLayout: 'list',
+                attachments: attachments
+            }
+        };
     }
 
-    /**
-     * Say hello and @ mention the current user.
-     */
-    async mentionActivityAsync(context) {
-        const TextEncoder = require('html-entities').XmlEntities;
+    // Invoked when the user selects an item from the search result list returned above.
+    async handleTeamsMessagingExtensionSelectItem(context, obj) {
+        return {
+            composeExtension: {
+                type: 'result',
+                attachmentLayout: 'list',
+                attachments: [CardFactory.thumbnailCard(obj.description)]
+            }
+        };
+    }
 
-        const mention = {
-            mentioned: context.activity.from,
-            text: `<at>${new TextEncoder().encode(context.activity.from.name)}</at>`,
-            type: 'mention'
+    /* Messaging Extension - Unfurling Link */
+    handleTeamsAppBasedLinkQuery(context, query) {
+        const attachment = CardFactory.thumbnailCard('Thumbnail Card',
+            query.url,
+            ['https://raw.githubusercontent.com/microsoft/botframework-sdk/master/icon.png']);
+
+        const result = {
+            attachmentLayout: 'list',
+            type: 'result',
+            attachments: [attachment]
         };
 
-        const replyActivity = MessageFactory.text(`Hi ${mention.text}`);
-        replyActivity.entities = [mention];
-
-        await context.sendActivity(replyActivity);
+        const response = {
+            composeExtension: result
+        };
+        return response;
     }
-
-    async showActivityAsync(context) {
-        var replyActivity;
-        var query = context.activity.text;
-        if(query.indexOf(' ') > 0) {
-            query = context.activity.text.substr(query.indexOf(' ')+1);
-            var images = imageSearch(query);
-            if(images.length <= 0)
-                replyActivity = MessageFactory.text("Sorry, no images match that description :-(");
-            else {
-                const text = images.join(",\n\n");
-                const card = CardFactory.heroCard("Here's what I found...", text);
-                await context.sendActivity({ attachments: [card] });
-                return;
-                //replyActivity = MessageFactory.text("Searching for pics for u: " + images);
-            }
-        }
-        else replyActivity = MessageFactory.text("Please tell me what you want to show, e.g. Show buildings");
-        await context.sendActivity(replyActivity);
-    }
-
+    /* Messaging Extension - Unfurling Link */
 }
 
 module.exports.BotActivityHandler = BotActivityHandler;

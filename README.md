@@ -1,25 +1,41 @@
-# COURSENAME
-This is the repository for the LinkedIn Learning course `Microsoft Teams for Developers`. The full course is available from [LinkedIn Learning][lil-course-url].
+# Bots/Messaging Extension
 
-![course-name-alt-text][lil-thumbnail-url] 
+*Bots* allow users to interact with your web service through text, interactive cards, and task modules. *Messaging extensions* allow users to interact with your web service through buttons and forms in the Microsoft Teams client. They can search, or initiate actions, in an external system from the compose message area, the command box, or directly from a message.
 
-_See the readme file in the main branch for updated instructions and information._
-## Instructions
-This repository has branches for each of the videos in the course. You can use the branch pop up menu in github to switch to a specific branch and take a look at the course at that stage, or you can add `/tree/BRANCH_NAME` to the URL to go to the branch you want to access.
+## Prerequisites
 
-## Branches
-The branches are structured to correspond to the videos in the course. The naming convention is `CHAPTER#_MOVIE#`. As an example, the branch named `02_03` corresponds to the second chapter and the third video in that chapter. 
-Some branches will have a beginning and an end state. These are marked with the letters `b` for "beginning" and `e` for "end". The `b` branch contains the code as it is at the beginning of the movie. The `e` branch contains the code as it is at the end of the movie. The `main` branch holds the final state of the code when in the course.
+**Dependencies**
+-  [NodeJS](https://nodejs.org/en/)
+-  [ngrok](https://ngrok.com/) or equivalent tunneling solution
+-  [M365 developer account](https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/build-and-test/prepare-your-o365-tenant) or access to a Teams account with the appropriate permissions to install an app.
 
-## Installing
-1. To use these exercise files, you must have the following installed:
-	- [list of requirements for course]
-2. Clone this repository into your local machine using the terminal (Mac), CMD (Windows), or a GUI tool like SourceTree.
-3. [Course-specific instructions]
+**Configure Ngrok**
 
+Your app will be run from a localhost server. You will need to setup Ngrok in order to tunnel from the Teams client to localhost. 
 
-[0]: # (Replace these placeholder URLs with actual course URLs)
+**Run Ngrok**
 
-[lil-course-url]: https://www.linkedin.com/learning/
-[lil-thumbnail-url]: http://
+Run ngrok - point to port 3978
+
+`ngrok http -host-header=rewrite 3978`
+
+**Update Bot Framework Messaging Endpoint**
+
+  Note: You can also do this with the Manifest Editor in App Studio if you are familiar with the process.
+
+- For the Messaging endpoint URL, use the current `https` URL you were given by running ngrok and append it with the path `/api/messages`. It should like something work `https://{subdomain}.ngrok.io/api/messages`.
+
+- Click on the `Bots` menu item from the toolkit and select the bot you are using for this project.  Update the messaging endpoint and press enter to save the value in the Bot Framework.
+
+- Ensure that you've [enabled the Teams Channel](https://docs.microsoft.com/en-us/azure/bot-service/channel-connect-teams?view=azure-bot-service-4.0)
+
+## Build and run
+
+### `npm install`
+
+### `npm start`
+
+## Deploy to Teams
+Start debugging the project by hitting the `F5` key or click the debug icon in Visual Studio Code and click the `Start Debugging` green arrow button.
+
 

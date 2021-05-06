@@ -2,10 +2,10 @@
     "name": "teams-conversation-bot",
     "version": "1.0.0",
     "msteams": {
-        "teamsAppId": "3390cb70-654a-4d3e-9621-0ff2b245b132"
+        "teamsAppId": "991e1f4e-48ea-4ada-a810-fda00129f0eb"
     },
     "description": "Microsoft Teams conversation bot quickstart",
-    "author": "Picturematic",
+    "author": "Microsoft",
     "license": "MIT",
     "main": "index.js",
     "scripts": {
