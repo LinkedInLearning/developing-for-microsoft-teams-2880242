@@ -61,3 +61,8 @@ server.post('/api/messages', (req, res) => {
         await botActivityHandler.run(context);
     });
 });
+
+// Listen for incoming get requests and return static content
+server.get('/public/*', (req, res) => {
+    res.sendFile(__dirname + req.path);
+});

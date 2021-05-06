@@ -37,6 +37,9 @@ class BotActivityHandler extends TeamsActivityHandler {
         const attachments = [];
         response.data.objects.forEach(obj => {
 
+            //const imageUrl = "https://searchmsg.loca.lt/public/thumbnails/" + imageFile;
+            //const imageUrl = "https://www.picturematic.com/dist/thumbnails/" + imageFile;
+
             const myAdaptiveCard = {
                 "type": "AdaptiveCard",
                 "body": [
@@ -81,11 +84,8 @@ class BotActivityHandler extends TeamsActivityHandler {
                 "version": "1.3"
             };
 
-
-
             const card = CardFactory.adaptiveCard(myAdaptiveCard);
             const preview = CardFactory.heroCard(obj.package.name); // Preview cards are optional for Hero card. You need them for Adaptive Cards.
-            //preview.content.tap = { type: 'invoke', value: { description: obj.package.description } };
             const attachment = { ...card, preview };
             attachments.push(attachment);
         });
