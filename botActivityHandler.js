@@ -36,57 +36,10 @@ class BotActivityHandler extends TeamsActivityHandler {
 
         const attachments = [];
         response.data.objects.forEach(obj => {
-
-            const myAdaptiveCard = {
-                "type": "AdaptiveCard",
-                "body": [
-                    {
-                        "type": "TextBlock",
-                        "size": "Medium",
-                        "weight": "Bolder",
-                        "text": obj.package.name
-                    },
-                    {
-                        "type": "ColumnSet",
-                        "columns": [
-                            {
-                                "type": "Column",
-                                "items": [
-                                    {
-                                        "type": "Image",
-                                        "style": "Person",
-                                        "url": "https://pbs.twimg.com/profile_images/3647943215/d7f12830b3c17a5a9e4afcc370e3a37e_400x400.jpeg",
-                                        "size": "Small"
-                                    }
-                                ],
-                                "width": "auto"
-                            },
-                            {
-                                "type": "Column",
-                                "items": [
-                                    {
-                                        "type": "TextBlock",
-                                        "spacing": "None",
-                                        "text": obj.package.description,
-                                        "isSubtle": true,
-                                        "wrap": true
-                                    }
-                                ],
-                                "width": "stretch"
-                            }
-                        ]
-                    }
-                ],
-                "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-                "version": "1.3"
-            };
-
-
-
-            const card = CardFactory.adaptiveCard(myAdaptiveCard);
+            const heroCard = CardFactory.heroCard(obj.package.name);
             const preview = CardFactory.heroCard(obj.package.name); // Preview cards are optional for Hero card. You need them for Adaptive Cards.
-            //preview.content.tap = { type: 'invoke', value: { description: obj.package.description } };
-            const attachment = { ...card, preview };
+            preview.content.tap = { type: 'invoke', value: { description: obj.package.description } };
+            const attachment = { ...heroCard, preview };
             attachments.push(attachment);
         });
 
@@ -115,18 +68,18 @@ class BotActivityHandler extends TeamsActivityHandler {
         const attachment = CardFactory.thumbnailCard('Thumbnail Card',
             query.url,
             ['https://raw.githubusercontent.com/microsoft/botframework-sdk/master/icon.png']);
-
+    
         const result = {
             attachmentLayout: 'list',
             type: 'result',
             attachments: [attachment]
         };
-
+    
         const response = {
             composeExtension: result
         };
         return response;
-    }
+        }
     /* Messaging Extension - Unfurling Link */
 }
 
