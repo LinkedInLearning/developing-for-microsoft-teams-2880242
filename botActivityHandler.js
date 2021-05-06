@@ -9,6 +9,9 @@ const {
     ActionTypes
 } = require('botbuilder');
 
+const { imageSearch, imageName, imageCategory } = require('./imageSearch');
+
+
 class BotActivityHandler extends TeamsActivityHandler {
     constructor() {
         super();
@@ -28,17 +31,13 @@ class BotActivityHandler extends TeamsActivityHandler {
 
     // Invoked when the service receives an incoming search query.
     async handleTeamsMessagingExtensionQuery(context, query) {
-        const axios = require('axios');
-        const querystring = require('querystring');
-
         const searchQuery = query.parameters[0].value;
-        const response = await axios.get(`http://registry.npmjs.com/-/v1/search?${querystring.stringify({ text: searchQuery, size: 8 })}`);
-
+        var imageFiles = imageSearch(searchQuery);
         const attachments = [];
-        response.data.objects.forEach(obj => {
-
+        
+        imageFiles.forEach(imageFile => {
             //const imageUrl = "https://searchmsg.loca.lt/public/thumbnails/" + imageFile;
-            //const imageUrl = "https://www.picturematic.com/dist/thumbnails/" + imageFile;
+            const imageUrl = "https://www.picturematic.com/dist/thumbnails/" + imageFile;
 
             const myAdaptiveCard = {
                 "type": "AdaptiveCard",
@@ -47,7 +46,7 @@ class BotActivityHandler extends TeamsActivityHandler {
                         "type": "TextBlock",
                         "size": "Medium",
                         "weight": "Bolder",
-                        "text": obj.package.name
+                        "text": imageCategory(imageFile)
                     },
                     {
                         "type": "ColumnSet",
@@ -57,9 +56,8 @@ class BotActivityHandler extends TeamsActivityHandler {
                                 "items": [
                                     {
                                         "type": "Image",
-                                        "style": "Person",
-                                        "url": "https://pbs.twimg.com/profile_images/3647943215/d7f12830b3c17a5a9e4afcc370e3a37e_400x400.jpeg",
-                                        "size": "Small"
+                                        "url": imageUrl,
+                                        "size": "Large"
                                     }
                                 ],
                                 "width": "auto"
@@ -70,7 +68,7 @@ class BotActivityHandler extends TeamsActivityHandler {
                                     {
                                         "type": "TextBlock",
                                         "spacing": "None",
-                                        "text": obj.package.description,
+                                        "text": imageName(imageFile),
                                         "isSubtle": true,
                                         "wrap": true
                                     }
@@ -85,7 +83,7 @@ class BotActivityHandler extends TeamsActivityHandler {
             };
 
             const card = CardFactory.adaptiveCard(myAdaptiveCard);
-            const preview = CardFactory.heroCard(obj.package.name); // Preview cards are optional for Hero card. You need them for Adaptive Cards.
+            const preview = CardFactory.heroCard(imageName(imageFile)); // Preview cards are optional for Hero card. You need them for Adaptive Cards.
             const attachment = { ...card, preview };
             attachments.push(attachment);
         });
