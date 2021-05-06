@@ -9,6 +9,8 @@ const {
     ActionTypes
 } = require('botbuilder');
 
+const { imageSearch, imageName, imageCategory } = require('./imageSearch');
+
 class BotActivityHandler extends TeamsActivityHandler {
     constructor() {
         super();
