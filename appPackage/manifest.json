@@ -56,6 +56,7 @@
     ],
     "validDomains": [
         "localhost",
-        "localhost:3000"
+        "localhost:3000",
+        "www.picturematic.com"
     ]
 }

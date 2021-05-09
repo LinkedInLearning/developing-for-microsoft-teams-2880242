@@ -7,6 +7,7 @@ import TermsOfUse from "./TermsOfUse";
 import Tab from "./Tab";
 import TabConfig from "./TabConfig";
 import TabPersonal from "./TabPersonal";
+import TaskModule from "./TaskModule";
 
 /**
  * The main app which handles the initialization and routing
@@ -25,6 +26,7 @@ function App() {
       <Route exact path="/tab" component={Tab} />
       <Route exact path="/config" component={TabConfig} />
       <Route exact path="/tabpersonal" component={TabPersonal} />
+      <Route exact path="/taskmodule" component={TaskModule} />
     </Router>
   );
 }
