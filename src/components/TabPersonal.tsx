@@ -13,7 +13,8 @@ class TabPersonal extends React.Component<any, any> {
     super(props)
     this.state = {
       context: {},
-      category: appInfo.categories[0]
+      category: appInfo.categories[0],
+      liked: [] // array of liked images
     }
   }
 
@@ -23,7 +24,8 @@ class TabPersonal extends React.Component<any, any> {
     // Get the user context from Teams and set it in the state
     microsoftTeams.getContext((context: microsoftTeams.Context) => {
       this.setState({
-        context: context
+        context: context,
+        liked: ["Aircraft_Wing__picturematic.com.jpg", "barley_field__picturematic.com.jpg"]
       });
     });
     // Next steps: Error handling using the error object
@@ -32,6 +34,18 @@ class TabPersonal extends React.Component<any, any> {
   onChange(e: any) {
     var value = e.target.value;
     if (value && value.length > 0) this.setState({ category: value });
+  }
+
+  onChangeLike(like: Boolean, filename: string) {
+    console.log("onChangeLike");
+    if(like) {
+      var newliked = this.state.liked;
+      newliked.push(filename);
+      this.setState({liked: newliked});
+    }
+    else {
+      this.setState({liked: this.state.liked.filter((v:string) => v != filename)});
+    }
   }
 
   render() {
@@ -50,7 +64,7 @@ class TabPersonal extends React.Component<any, any> {
         if (category === entityId) {
           pictures = (
             <div>
-              {appInfo.categoryPictures[entityId].map((filename: string) => <Thumbnail category={category} filename={filename} />)}
+              {appInfo.categoryPictures[entityId].map((filename: string) => <Thumbnail category={category} filename={filename} liked={this.state.liked.includes(filename)} onChangeLike={(l: Boolean, f: string)=>this.onChangeLike(l,f)} />)}
             </div>
           );
           break;

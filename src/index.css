@@ -12,6 +12,18 @@ img.tile {
   margin: 3px;
 }
 
+div.tile-div {
+  position:relative;
+  display:inline-block;
+  width: 106px;
+}
+
+img.tile-icon {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+}
+
 .tile-listview {
   clear: both;
 }

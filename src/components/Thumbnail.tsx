@@ -1,7 +1,7 @@
 // React component to render a picture thumbnail
 import * as microsoftTeams from "@microsoft/teams-js";
 
-export default function Thumbnail({ filename, category, listview }: { filename: string, category: string, listview?: Boolean }) {
+export default function Thumbnail({ filename, category, listview, liked, onChangeLike }: { filename: string, category: string, listview?: Boolean, liked?: Boolean, onChangeLike?: any }) {
 
     var webroot = (typeof window === "undefined") ? "https://{{HOSTNAME}}" : window.location.protocol + "//" + window.location.host;
 
@@ -35,6 +35,7 @@ export default function Thumbnail({ filename, category, listview }: { filename: 
             url: webroot + "/taskmodule?category=" + category + "&filename=" + filename + "&name=" + getImageName(filename)
         }
         microsoftTeams.tasks.startTask(tmInfo);
+        if(onChangeLike) onChangeLike(!liked, filename); // toggle like status
     }
 
     if (listview) return (
@@ -44,6 +45,9 @@ export default function Thumbnail({ filename, category, listview }: { filename: 
         </div>
     );
     else return (
-        <img className="tile" src={"thumbnails/" + category + "/" + filename} width="100" height="100" title={getAttribution(filename)} alt={getImageName(filename)} onClick={onClick} />
+        <div className="tile-div">
+            <img className="tile" src={"thumbnails/" + category + "/" + filename} width="100" height="100" title={getAttribution(filename)} alt={getImageName(filename)} onClick={onClick} />
+            {liked && <img className="tile-icon" src="heart.png" width="15" height="15" title="liked" alt="heart logo" />}
+        </div>
     );
 }
