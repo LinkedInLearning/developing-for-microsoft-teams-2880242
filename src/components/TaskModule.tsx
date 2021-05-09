@@ -10,7 +10,6 @@ export default class TaskModule extends React.Component<any, any> {
     return (
       <div>
         <img src={"pictures/" + params.get("category") + "/" + params.get("filename")} width="530" height="400" title={name as string} alt={name as string} />
-        <p>{name}</p>
       </div>
     );
   }

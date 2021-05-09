@@ -29,9 +29,9 @@ export default function Thumbnail({ filename, category, listview }: { filename: 
 
     function onClick() {
         const tmInfo = {
-            title: "Image Preview",
-            Width: 400,
-            height: 530,
+            title: getImageName(filename),
+            Width: 530,
+            height: 500,
             url: webroot + "/taskmodule?category=" + category + "&filename=" + filename + "&name=" + getImageName(filename)
         }
         microsoftTeams.tasks.startTask(tmInfo);
