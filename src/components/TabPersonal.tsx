@@ -24,8 +24,7 @@ class TabPersonal extends React.Component<any, any> {
     // Get the user context from Teams and set it in the state
     microsoftTeams.getContext((context: microsoftTeams.Context) => {
       this.setState({
-        context: context,
-        liked: ["Aircraft_Wing__picturematic.com.jpg", "barley_field__picturematic.com.jpg"]
+        context: context
       });
     });
     // Next steps: Error handling using the error object
