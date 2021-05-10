@@ -22,17 +22,12 @@ class TabConfig extends React.Component<any, any> {
     });
   }
 
-  onChange(e:any) {
-    var value = e.target.value;
-    if(value && value.length > 0) this.setState({ category: value }); 
-  }
-
   render() {
     microsoftTeams.settings.registerOnSaveHandler((saveEvent) => {
       const baseUrl = `https://${window.location.hostname}:${window.location.port}`;
       microsoftTeams.settings.setSettings({
-        "suggestedDisplayName": this.state.category,
-        "entityId": this.state.category,
+        "suggestedDisplayName": "Context",
+        "entityId": "",
         "contentUrl": baseUrl + "/tab",
         "websiteUrl": baseUrl + "/tab"
       });
@@ -44,13 +39,7 @@ class TabConfig extends React.Component<any, any> {
 
     return (
       <div>
-        <h1>Tab Configuration</h1>
-        <div>
-          Please choose the category you want this tab to show:
-        </div>
-        <select onChange={e=>this.onChange(e)} value={this.state.category}>
-          {appInfo.categories.map(category => <option>{category}</option>)}
-        </select>
+        <h1>Nothing to see here...</h1>
       </div>
     );
   }

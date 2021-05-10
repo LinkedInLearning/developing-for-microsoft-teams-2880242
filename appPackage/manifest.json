@@ -3,7 +3,7 @@
     "manifestVersion": "1.8",
     "version": "1.0.0",
     "id": "e8b5c3ef-0376-4cc9-8143-c06a877a5a12",
-    "packageName": "com.picturematic",
+    "packageName": "com.picturematic.context",
     "developer": {
         "name": "Picturematic, Inc.",
         "websiteUrl": "https://localhost:3000",
@@ -15,12 +15,12 @@
         "outline": "outline.png"
     },
     "name": {
-        "short": "categorytab",
-        "full": ""
+        "short": "TeamsContext",
+        "full": "Teams Context Viewer"
     },
     "description": {
-        "short": "Short description for My Group Tab.",
-        "full": "Full description of My Group Tab."
+        "short": "Teams Context Viewer.",
+        "full": "Teams tab to display the contents of the context object."
     },
     "accentColor": "#FFFFFF",
     "configurableTabs": [

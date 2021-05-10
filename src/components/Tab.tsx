@@ -1,11 +1,9 @@
 import React from 'react';
 import './App.css';
-import Thumbnail from "./Thumbnail";
 import * as microsoftTeams from "@microsoft/teams-js";
-import * as appInfo from "../GeneratedAppInfo"
 
-class Tab extends React.Component<any, { context:any }> {
-  constructor(props: any){
+class Tab extends React.Component<any, { context: any }> {
+  constructor(props: any) {
     super(props)
     this.state = {
       context: {}
@@ -23,26 +21,18 @@ class Tab extends React.Component<any, { context:any }> {
   }
 
   render() {
-      const entityId = Object.keys(this.state.context).length > 0 ? this.state.context['entityId'] : "";
-      var pictures = <></>;
-      if(entityId.length > 0) {
-        for(var category in appInfo.categoryPictures) {
-          if(category === entityId) {
-            pictures = (
-              <div>
-                {appInfo.categoryPictures[entityId].map((filename:string) => <Thumbnail category={category} filename={filename} />)}
-              </div>
-              );
-            break;
-          }
-        }
-      }
-      return (
-        <div id="container">
-          <h2>Pictures for the <em>{entityId}</em> category:</h2>
-          {pictures}
-        </div>
-      );
+    var contextRows = [];
+    for (var key in this.state.context) {
+      var value = this.state.context[key];
+      contextRows.push(<p>{key} : {value}</p>);
+    }
+
+    return (
+      <div id="container">
+        <h2>Properties for the Teams context:</h2>
+        {contextRows}
+      </div>
+    );
   }
 }
 export default Tab;
