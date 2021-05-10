@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "picturematic-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/picturematic/PicturematicWebPart.js",
+          "manifest": "./src/webparts/picturematic/PicturematicWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "PicturematicWebPartStrings": "lib/webparts/picturematic/loc/{locale}.js"
+  }
+}

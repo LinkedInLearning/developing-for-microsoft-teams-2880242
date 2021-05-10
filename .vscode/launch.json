@@ -1,26 +1,43 @@
 {
-    "version": "1.0.0",
-    "configurations": [
-        {
-            "name": "Debug Teams (Chrome)",
-            "type": "chrome",
-            "request": "launch",
-            "url": "https://teams.microsoft.com/_#/l/app/e8b5c3ef-0376-4cc9-8143-c06a877a5a12?installAppPackage=true",
-            "webRoot": "${workspaceFolder}"
-        },
-        {
-            "name": "Debug Teams (Edge)",
-            "type": "edge",
-            "request": "launch",
-            "url": "https://teams.microsoft.com/_#/l/app/e8b5c3ef-0376-4cc9-8143-c06a877a5a12?installAppPackage=true",
-            "webRoot": "${workspaceFolder}"
-        },
-        {
-            "name": "Debug (Chrome)",
-            "type": "chrome",
-            "request": "launch",
-            "url": "https://localhost:3000/tab",
-            "webRoot": "${workspaceFolder}"
-        }
-    ]
+  /**
+   * Install Chrome Debugger Extension for Visual Studio Code to debug your components with the
+   * Chrome browser: https://aka.ms/spfx-debugger-extensions
+   */
+  "version": "0.2.0",
+  "configurations": [{
+      "name": "Local workbench",
+      "type": "chrome",
+      "request": "launch",
+      "url": "https://localhost:4321/temp/workbench.html",
+      "webRoot": "${workspaceRoot}",
+      "sourceMaps": true,
+      "sourceMapPathOverrides": {
+        "webpack:///.././src/*": "${webRoot}/src/*",
+        "webpack:///../../../src/*": "${webRoot}/src/*",
+        "webpack:///../../../../src/*": "${webRoot}/src/*",
+        "webpack:///../../../../../src/*": "${webRoot}/src/*"
+      },
+      "runtimeArgs": [
+        "--remote-debugging-port=9222"
+      ]
+    },
+    {
+      "name": "Hosted workbench",
+      "type": "chrome",
+      "request": "launch",
+      "url": "https://enter-your-SharePoint-site/_layouts/workbench.aspx",
+      "webRoot": "${workspaceRoot}",
+      "sourceMaps": true,
+      "sourceMapPathOverrides": {
+        "webpack:///.././src/*": "${webRoot}/src/*",
+        "webpack:///../../../src/*": "${webRoot}/src/*",
+        "webpack:///../../../../src/*": "${webRoot}/src/*",
+        "webpack:///../../../../../src/*": "${webRoot}/src/*"
+      },
+      "runtimeArgs": [
+        "--remote-debugging-port=9222",
+        "-incognito"
+      ]
+    }
+  ]
 }
