@@ -38,6 +38,10 @@ em {
   font-style: normal;
 }
 
+img.preview {
+  margin: 1em;
+}
+
 #container {
   max-width: 1100px;
 }
