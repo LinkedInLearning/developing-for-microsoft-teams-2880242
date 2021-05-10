@@ -26,16 +26,20 @@ export default function Thumbnail({ filename, category, listview, liked, onChang
         return getImageName(image) + " - " + attrib;
     }
 
+    function submitHandler(err: string, result: string) {
+        if (onChangeLike)
+            onChangeLike(result === "true", filename);
+    }
 
     function onClick() {
         const tmInfo = {
             title: getImageName(filename),
             Width: 530,
             height: 500,
-            url: webroot + "/taskmodule?category=" + category + "&filename=" + filename + "&name=" + getImageName(filename)
+            url: webroot + "/taskmodule?category=" + category + "&filename=" + filename + "&name=" + getImageName(filename) + "&liked=" + liked
         }
-        microsoftTeams.tasks.startTask(tmInfo);
-        if(onChangeLike) onChangeLike(!liked, filename); // toggle like status
+        microsoftTeams.tasks.startTask(tmInfo, submitHandler);
+        //if (onChangeLike) onChangeLike(!liked, filename); // toggle like status
     }
 
     if (listview) return (

@@ -12,6 +12,10 @@ img.tile {
   margin: 3px;
 }
 
+img.preview {
+  margin:1em;
+}
+
 div.tile-div {
   position:relative;
   display:inline-block;
@@ -40,4 +44,13 @@ em {
 
 #container {
   max-width: 1100px;
+}
+
+span.spacer {
+  width: 15em;
+  margin-left: 10em;
+}
+
+div.controls {
+  margin-left: 4em;
 }
