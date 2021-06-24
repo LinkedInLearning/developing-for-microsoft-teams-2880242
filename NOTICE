@@ -6,9 +6,9 @@ See LICENSE in the project root for license information.
 
 ATTRIBUTIONS:
 Node.js
-https://nodejs.org/
-MIT license (MIT)
-https://raw.githubusercontent.com/nodejs/node/master/LICENSE
+https://github.com/nodejs/node
+License: MIT license (MIT)
+https://opensource.org/licenses/MIT
 
 Please note, this project may automatically load third party code from external 
 repositories (for example, NPM modules, Composer packages, or other dependencies). 
