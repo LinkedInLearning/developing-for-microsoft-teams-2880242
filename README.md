@@ -1,73 +1,36 @@
-# spfxtab
+# Developing for Microsoft Teams
+This is the repository for the LinkedIn Learning course Developing for Microsoft Teams. The full course is available from [LinkedIn Learning][lil-course-url].
 
-## Summary
+![Developing for Microsoft Teams][lil-thumbnail-url] 
 
-Short summary on functionality and used technologies.
+Microsoft Teams is one of the fastest growing enterprise tools and lets workers collaborate, conduct meetings, share data and information, and use applications, all within Teams. The versatility of Teams means it is also a rich development platform. In this course, software developer Bill Ayers teaches how to build custom tabs and extensions in Teams using open web technologies like Node.js, TypeScript, and React. With more and more users not just using Teams, but also doing more and more within Teams, understanding how to develop for this platform will be increasingly important for any software developer who wants to reach their users where they are.
 
-[picture of the solution in action, if possible]
+## Instructions
+This repository has branches for each of the videos in the course. You can use the branch pop up menu in github to switch to a specific branch and take a look at the course at that stage, or you can add `/tree/BRANCH_NAME` to the URL to go to the branch you want to access.
 
-## Used SharePoint Framework Version
+## Branches
+The branches are structured to correspond to the videos in the course. The naming convention is `CHAPTER#_MOVIE#`. As an example, the branch named `02_03` corresponds to the second chapter and the third video in that chapter. 
+Some branches will have a beginning and an end state. These are marked with the letters `b` for "beginning" and `e` for "end". The `b` branch contains the code as it is at the beginning of the movie. The `e` branch contains the code as it is at the end of the movie. The `main` branch holds the final state of the code when in the course.
 
-![version](https://img.shields.io/badge/version-1.11-green.svg)
+When switching from one exercise files branch to the next after making changes to the files, you may get a message like this:
 
-## Applies to
+    error: Your local changes to the following files would be overwritten by checkout:        [files]
+    Please commit your changes or stash them before you switch branches.
+    Aborting
 
-- [SharePoint Framework](https://aka.ms/spfx)
-- [Microsoft 365 tenant](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-developer-tenant)
+To resolve this issue:
+	
+    Add changes to git using this command: git add .
+	Commit changes using this command: git commit -m "some message"
 
-> Get your own free development tenant by subscribing to [Microsoft 365 developer program](http://aka.ms/o365devprogram)
 
-## Prerequisites
+### Instructor
 
-> Any special pre-requisites?
+Bill Ayers 
+  
+_Consultant Developer, Solution Architect_
 
-## Solution
+Check out my other courses on [LinkedIn Learning](https://www.linkedin.com/learning/instructors/bill-ayers).
 
-Solution|Author(s)
---------|---------
-folder name | Author details (name, company, twitter alias with link)
-
-## Version history
-
-Version|Date|Comments
--------|----|--------
-1.1|March 10, 2021|Update comment
-1.0|January 29, 2021|Initial release
-
-## Disclaimer
-
-**THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.**
-
----
-
-## Minimal Path to Awesome
-
-- Clone this repository
-- Ensure that you are at the solution folder
-- in the command-line run:
-  - **npm install**
-  - **gulp serve**
-
-> Include any additional steps as needed.
-
-## Features
-
-Description of the extension that expands upon high-level summary above.
-
-This extension illustrates the following concepts:
-
-- topic 1
-- topic 2
-- topic 3
-
-> Notice that better pictures and documentation will increase the sample usage and the value you are providing for others. Thanks for your submissions advance.
-
-> Share your web part with others through Microsoft 365 Patterns and Practices program to get visibility and exposure. More details on the community, open-source projects and other activities from http://aka.ms/m365pnp.
-
-## References
-
-- [Getting started with SharePoint Framework](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-developer-tenant)
-- [Building for Microsoft teams](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/build-for-teams-overview)
-- [Use Microsoft Graph in your solution](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/get-started/using-microsoft-graph-apis)
-- [Publish SharePoint Framework applications to the Marketplace](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/publish-to-marketplace-overview)
-- [Microsoft 365 Patterns and Practices](https://aka.ms/m365pnp) - Guidance, tooling, samples and open-source controls for your Microsoft 365 development
+[lil-course-url]: https://www.linkedin.com/learning/developing-for-microsoft-teams
+[lil-thumbnail-url]: https://cdn.lynda.com/course/2880242/2880242-1624381908353-16x9.jpg
